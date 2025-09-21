@@ -1,6 +1,6 @@
 # 2025 Derryfield ISP (mlswebsite)
 
-TODO: Add project description here
+This API will be used to access and update the data about the teams and players for the website.
 
 ## Running this project
 ### Prerequisites
