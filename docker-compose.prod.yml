@@ -1,0 +1,4 @@
+services:
+  api:
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://${DB_URL}:3306/mlswebsite

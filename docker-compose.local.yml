@@ -1,0 +1,31 @@
+services:
+  api:
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/mlswebsite?useSSL=false&allowPublicKeyRetrieval=true
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: mlswebsite
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: rootpass
+    command:
+      - --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - spring-mysql-network
+    healthcheck:
+      test: ["CMD", "mysql", "-u${DB_USERNAME}", "-p${DB_PASSWORD}", "-e", "SELECT 1"]
+      timeout: 5s
+      retries: 5
+      interval: 5s
+
+volumes:
+  db-data:
